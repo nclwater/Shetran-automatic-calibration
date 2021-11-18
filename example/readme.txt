@@ -1,9 +1,3 @@
-# shetran-prepare-start
-
-## Features
-- Executable to run automatic calibration of Shetran
-
-## Usage
 1) in command prompt change folder to Shetran folder 
 e.g cd C:\Users\steve\Documents\openclim\shetran-automaticcalibration\example\shetran
 2) type shetran-automaticcalibration.exe 38017
@@ -61,3 +55,5 @@ results.csv  - a line with the results and the parameters addded
 results-complex.csv - details of the results for all the complex members added
 
 6) when all the simulations are finished the best is run again.
+
+ 
