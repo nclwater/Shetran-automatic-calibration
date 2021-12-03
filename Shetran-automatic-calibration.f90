@@ -752,17 +752,21 @@ real                      :: MeasuredSquare(NoDischargeValues-SpinUpValues),Simu
    MeanMeasured=0
    MeanSimulated=0
    do z=1, mindischargevalues-SpinUpValues
-   MeanMeasured = MeanMeasured + MeasuredDisShort(z)
-   MeanSimulated = MeanSimulated + SimulatedDisShort(z)
+     if ((MeasuredDisShort(z)).GE.(0.0)) then
+       MeanMeasured = MeanMeasured + MeasuredDisShort(z)
+       MeanSimulated = MeanSimulated + SimulatedDisShort(z)
+     endif
    enddo
    MeanMeasured=MeanMeasured/(mindischargevalues-SpinUpValues)
    MeanSimulated=MeanSimulated/(mindischargevalues-SpinUpValues)
 !   print*,mindischargevalues,spinupvalues,meanmeasured,meansimulated,MeasuredDisShort(1),SimulatedDisShort(1)
    SubBias = 100* (MeanSimulated-MeanMeasured)/MeanMeasured
    do z=1,mindischargevalues-SpinUpValues
+     if ((MeasuredDisShort(z)).GE.(0.0)) then
        MeasuredSquare(z)=(MeasuredDisShort(z)-MeanMeasured)**2
        SimuMeasSquare(z)=(SimulatedDisShort(z)-MeasuredDisShort(z))**2
-!   if (z.gt.3600) then 
+     endif
+!  if (z.gt.10200) then 
 !       print*,z,MeasuredDisShort(z),SimulatedDisShort(z),MeasuredSquare(z),SimuMeasSquare(z)
 !   endif
    enddo
