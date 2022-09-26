@@ -4,11 +4,11 @@
 - Executable to run automatic calibration of Shetran
 
 ## Usage
-###1.  in command prompt change folder to Shetran folder 
+### 1.  in command prompt change folder to Shetran folder 
 
 e.g cd C:\Users\steve\Documents\openclim\shetran-automaticcalibration\example\shetran
 
-###2. type shetran-automaticcalibration.exe 38012
+### 2. type shetran-automaticcalibration.exe 38012
 
 This reads ../38012/38012_LibraryFile.xml and ../38012/optimise.csv
 
