@@ -13,13 +13,21 @@ This reads ../38012/38012_LibraryFile.xml and ../38012/optimise.csv
 In optimise.csv there are the following 9 lines:
 
 optimise parameters
+
 NRFA_DailyFlows_38012_19800101-20101231.txt
+
 Calibration_start_and_end_times,3654,7305
+
 Validation_start_and_end_times,7306,10958
+
 deep_soil_conductivity,0.0001,1.0
+
 shallow_soil_conductivity,1,100
+
 shallow_soil_depth,0.5,4
+
 AePe_ratio,0.5,2.0
+
 Urban_seperate_sewer_fraction,0.1,0.5
 
 
