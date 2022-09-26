@@ -1,4 +1,4 @@
-# shetran-prepare-start
+# shetran-automatic-calibration
 
 ## Features
 - Executable to run automatic calibration of Shetran
