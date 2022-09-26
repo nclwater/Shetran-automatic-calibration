@@ -1,0 +1,1 @@
+on cmd prompt: shetran-automatic-calibration.exe 38012
