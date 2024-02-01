@@ -1,3 +1,9 @@
+010224
+******
+Currently only owrks if rainfall and PET timestep is the same as the discharge timestep. 
+
+
+
 090522
 ******
 bug in code when there are lots of missing values. Calculation of mean values wrong

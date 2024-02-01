@@ -1,6 +1,6 @@
 1) in command prompt change folder to Shetran folder 
 e.g cd C:\Users\steve\Documents\openclim\shetran-automaticcalibration\example\shetran
-2) type shetran-automaticcalibration.exe 38017
+2) type shetran-automatic-calibration.exe 38017
 
 This reads ../38017/38017_LibraryFile.xml and ../38017/optimise.csv
 

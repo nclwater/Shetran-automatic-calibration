@@ -29,7 +29,6 @@ integer        :: io,filelength,vegend,soilpropend,soildetend,ncols,nrows
 ! NoS = Number of sample points (= NoP * NoM)
 ! NoIter = Number of iterations of algorithm
 ! there are NoS initial runs. Then for each iteration NoP*Nobeta runs which are repeated NoIter times
-!integer ,parameter       :: NoP=1,NoN=5,NoM=2*NoN+1,NoQ=NoN+1,NoBeta=2*NoN+1,NoS=NoP*NoM,noptvalues=2,NoIter=20
 
 !standard catchment
 integer ,parameter       :: NoP=2,NoN=5,NoM=2*NoN+1,NoQ=NoN+1,NoBeta=2*NoN+1,NoS=NoP*NoM,noptvalues=2,NoIter=20
@@ -87,9 +86,9 @@ print*
       
 ! read n1 from the command line- catchmentnumber
 n1=1
-!CALL GETARG(n1,libraryfile)
+CALL GETARG(n1,libraryfile)
 
-libraryfile='38012'
+!libraryfile='38012'
 !libraryfile='UCauca5000_easy'
 
 !set calibration from 1/1/1990 to 31/12/1999 (3654 to 7305)
@@ -166,10 +165,13 @@ enddo
 allocate (MeasuredDischarge(NoDischargeValues))
 rewind(12)
 
+!print*, NoDischargeValues
+
 !read measured discharge data
 read(12,*)
 do i=1,NoDischargeValues
   Read(12,'(A11,f10.0)') Text1,MeasuredDischarge(i) 
+!  print*, MeasuredDischarge(i) 
 enddo
 close(12)
 
@@ -820,6 +822,7 @@ call reducedurbanrain(libraryfile,filelength,text,soildetend,NoDischargeValues,S
             endif
         enddo
     enddo
+!!! is the PE the same timestep as the discharge? *24 if hourly and discharge daily
    do i=1,NoDischargeValues
         Read(16,*) (precip(j),j=1,vegorder)
         write(18,'(*(f6.2, ", "))') (precip(j)*vegurban(j),j=1,vegorder)
@@ -858,7 +861,7 @@ call reducedurbanrain(libraryfile,filelength,text,soildetend,NoDischargeValues,S
     enddo
     close(14)
     
-    !print*,NoDischargeValues,nosimdischargevalues
+    !print*,NoDischargeValues,nosimdischargevalues,simulatedDischarge(1),dischargefilename,simulatedDischarge(100)
     !caculate NSE and pbias
 !    mindischargevalues=min(NoDischargeValues,nosimdischargevalues)
     
@@ -879,7 +882,7 @@ call reducedurbanrain(libraryfile,filelength,text,soildetend,NoDischargeValues,S
    enddo
    MeanMeasured=MeanMeasured/nvalues
    MeanSimulated=MeanSimulated/nvalues
-!   print*,mindischargevalues,spinupvalues,meanmeasured,meansimulated,MeasuredDisShort(1),SimulatedDisShort(1)
+!   print*,calibrationTimes(1), calibrationTimes(2),meanmeasured,meansimulated,MeasuredDischarge(z),SimulatedDischarge(z)
    SubBiasCal = 100* (MeanSimulated-MeanMeasured)/MeanMeasured
    do z=calibrationTimes(1), calibrationTimes(2)
      if ((MeasuredDischarge(z)).GE.(0.0)) then
@@ -889,9 +892,9 @@ call reducedurbanrain(libraryfile,filelength,text,soildetend,NoDischargeValues,S
         MeasuredSquare(z)=0
         SimuMeasSquare(z)=0
      endif
-!  if (z.gt.10200) then 
-!       print*,z,MeasuredDisShort(z),SimulatedDisShort(z),MeasuredSquare(z),SimuMeasSquare(z)
-!   endif
+   if (z.gt.1050) then 
+!       print*,z,MeasuredDischarge(z),SimulatedDischarge(z),MeasuredSquare(z),SimuMeasSquare(z)
+   endif
    enddo
    SubNSECal = 1- sum(SimuMeasSquare(calibrationTimes(1): calibrationTimes(2)))/Sum(MeasuredSquare(calibrationTimes(1):calibrationTimes(2)))
 
@@ -907,7 +910,7 @@ call reducedurbanrain(libraryfile,filelength,text,soildetend,NoDischargeValues,S
    enddo
    MeanMeasured=MeanMeasured/nvalues
    MeanSimulated=MeanSimulated/nvalues
-!   print*,mindischargevalues,spinupvalues,meanmeasured,meansimulated,MeasuredDisShort(1),SimulatedDisShort(1)
+   !print*,meanmeasured,meansimulated,MeasuredDischarge(z),SimulatedDischarge(z)
    SubBiasVal = 100* (MeanSimulated-MeanMeasured)/MeanMeasured
    do z=ValidationTimes(1), ValidationTimes(2)
      if ((MeasuredDischarge(z)).GE.(0.0)) then
@@ -1045,8 +1048,9 @@ real :: vegurban(nrows*ncols)
                vegurban(vegorder)=urbanRainFraction
             endif
         enddo
-    enddo
-    do i=1,NoDischargeValues
+     enddo
+!!! is the rainfall the same timestep as the discharge? *24 if hourly and discharge daily
+     do i=1,NoDischargeValues
         Read(16,*) (precip(j),j=1,vegorder)
         write(18,'(*(f6.2, ", "))') (precip(j)*vegurban(j),j=1,vegorder)
     enddo

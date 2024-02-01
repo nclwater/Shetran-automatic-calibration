@@ -1,14 +1,14 @@
 # shetran-automatic-calibration
 
 ## Features
-- Executable to run automatic calibration of Shetran
+- Executable to run automatic calibration of Shetran. This version only works if the rainfall and discharge timesteps are equal - if they are not let me (s.j.birkinshaw@ncl.ac.uk) know and I will sort out a modified executable
 
 ## Usage
 ### 1.  in command prompt change folder to Shetran folder 
 
 e.g cd C:\Users\steve\Documents\openclim\shetran-automaticcalibration\example\shetran
 
-### 2. type shetran-automaticcalibration.exe 38012
+### 2. type shetran-automatic-calibration.exe 38012
 
 This reads ../38012/38012_LibraryFile.xml and ../38012/optimise.csv
 
