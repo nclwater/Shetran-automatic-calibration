@@ -1,1 +1,0 @@
-on cmd prompt: shetran-optimise-6var.exe 39028
