@@ -1,1 +1,1 @@
-on cmd prompt: shetran-automatic-calibration.exe 38012
+on cmd prompt: shetran-automatic-calibration-groundwater.exe 33029
