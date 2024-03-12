@@ -1,36 +1,20 @@
-# shetran-automatic-calibration
-
-## Features
-- Executable to run automatic calibration of Shetran. This version only works if the rainfall and discharge timesteps are equal - if they are not let me (s.j.birkinshaw@ncl.ac.uk) know and I will sort out a modified executable
-
-## Usage
-### 1.  in command prompt change folder to Shetran folder 
-
+1) in command prompt change folder to Shetran folder 
 e.g cd C:\Users\steve\Documents\openclim\shetran-automaticcalibration\example\shetran
+2) type shetran-automatic-calibration.exe 38017
 
-### 2. type shetran-automatic-calibration.exe 38012
-
-This reads ../38012/38012_LibraryFile.xml and ../38012/optimise.csv
+This reads ../38017/38017_LibraryFile.xml and ../38017/optimise.csv
 
 In optimise.csv there are the following 9 lines:
 
-- optimise parameters
-
-- NRFA_DailyFlows_38012_19800101-20101231.txt
-
-- Calibration_start_and_end_times,3654,7305
-
-- Validation_start_and_end_times,7306,10958
-
-- deep_soil_conductivity,0.0001,1.0
-
-- shallow_soil_conductivity,1,100
-
-- shallow_soil_depth,0.5,4
-
-- AePe_ratio,0.5,2.0
-
-- Urban_seperate_sewer_fraction,0.1,0.5
+optimise parameters
+NRFA_DailyFlows_38012_19800101-20101231.txt
+Calibration_start_and_end_times,3654,7305
+Validation_start_and_end_times,7306,10958
+deep_soil_conductivity,0.0001,1.0
+shallow_soil_conductivity,1,100
+shallow_soil_depth,0.5,4
+AePe_ratio,0.5,2.0
+Urban_seperate_sewer_fraction,0.1,0.5
 
 
 The "Calibration_start_and_end_times" are the times used in the caculation of the calibration NSE. In this case from 1/1/1990 to 31/12/1999  
@@ -42,9 +26,9 @@ Lines 5-9 are the minimum and maximum values for the 5 paramters that are calibr
 
 A two soil cateogry file "soil-2types.asc" and single land-use file "landcover-2types.asc" is produced and used. Category 2 is urban everything else is category 1. Urban areas have very low conductivities and high runoff Strickler coefficient. The urban category is half the urban fraction in the original land cover map (e.g. 38012_LandCover.asc) as the urban areas in this maps contains lots of gradens parks, etc. Also prooduced and used is "Urban_PET.csv" and "Urban_Precip.csv". For non-urban these are the same as before for urban areas the PET is set to zero and the precipitation depends on the "Urban_seperate_sewer_fraction". 
 
-### 3. shetran-automaticcalibration.exe uses the SCE-UA global optimization method Duan (1994).
+3) shetran-automaticcalibration.exe uses the SCE-UA global optimization method Duan (1994).
 
-currenlty it carries out 462 simulations
+currenlty it carries out 546 simulations
 
 ! NoP = number of partitions
 ! NoN = number of points in each complex
@@ -75,17 +59,19 @@ For each simulation a new library file is produced.
 
 LibraryFile1.xml
 
-### 4. Each simulation runs:
+4) Each simulation runs:
 shetran-prepare-snow.exe
 and
 shetran.exe
 
 As usual shetran-prepare-snow.exe produces the input*** files and shetran.exe the output****
 
-### 5. at the end of the simulation shetran-automaticcalibration.exe calculates the NSE and then appends
+5) at the end of the simulation shetran-automaticcalibration.exe calculates the NSE and then appends
 
 results.csv  - a line with the results and the parameters addded
 
 results-complex.csv - details of the results for all the complex members added
 
-### 6. when all the simulations are finished the best is run again.
+6) when all the simulations are finished the best is run again.
+
+ 
